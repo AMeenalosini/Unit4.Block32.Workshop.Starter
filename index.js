@@ -5,7 +5,7 @@ const morgan = require("morgan");
 
 //create client to connect to the database
 const client = new pg.Client(
-  process.env.DATABASE_URL || "postgres://localhost/the_acme_iceshop_db"
+  process.env.DATABASE_URL || "postgres://postgres:Ram00gcr$@localhost/the_acme_iceshop_db"
 );
 
 //create the express server
@@ -64,7 +64,7 @@ server.use(require("morgan")("dev")); //logs the requests received to the server
 //D - DELETE --> DELETE
 
 //CREATE - adds a new note to the table
-server.post("/api/iceshop", async (req, res, next) => {
+server.post("/api/flavors", async (req, res, next) => {
   try {
     //create the SQL query to create a new note based on the information in the request body
     const SQL = `INSERT INTO iceshop(name) VALUES($1) RETURNING *;`;
@@ -78,7 +78,7 @@ server.post("/api/iceshop", async (req, res, next) => {
 });
 
 //READ - returns an array of note objects
-server.get("/api/iceshop", async (req, res, next) => {
+server.get("/api/flavors", async (req, res, next) => {
   try {
     //create the SQL query to select all the iceshop in descending order based on when they were created
     const SQL = `SELECT * FROM iceshop ORDER BY created_at DESC;`;
@@ -92,7 +92,7 @@ server.get("/api/iceshop", async (req, res, next) => {
 });
 
 //UPDATE - edits a note based on the id passed and information within the request body
-server.put("/api/iceshop/:id", async (req, res, next) => {
+server.put("/api/flavors/:id", async (req, res, next) => {
   try {
     //create the SQL query to update the note with the selected id
     const SQL = `UPDATE iceshop SET name=$1, is_favorite=$2, updated_at=now() WHERE id=$3 RETURNING *;`;
@@ -110,7 +110,7 @@ server.put("/api/iceshop/:id", async (req, res, next) => {
 });
 
 //DELETE
-server.delete("/api/iceshop/:id", async (req, res, next) => {
+server.delete("/api/flavors/:id", async (req, res, next) => {
   try {
     //create the SQL query to delete a note by id
     const SQL = `DELETE FROM iceshop WHERE id=$1;`;

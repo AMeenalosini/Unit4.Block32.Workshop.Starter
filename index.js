@@ -77,7 +77,7 @@ server.post("/api/flavors", async (req, res, next) => {
   }
 });
 
-//READ - returns an array of note objects
+//READ - returns an array of flavor objects
 server.get("/api/flavors", async (req, res, next) => {
   try {
     //create the SQL query to select all the iceshop in descending order based on when they were created
@@ -91,7 +91,21 @@ server.get("/api/flavors", async (req, res, next) => {
   }
 });
 
-//UPDATE - edits a note based on the id passed and information within the request body
+//READ - returns the selected id array
+server.get("/api/flavors/:id", async (req, res, next) => {
+    try {
+      //create the SQL query to select all the iceshop in descending order based on when they were created
+      const SQL = `SELECT * FROM iceshop WHERE id=$1;`;
+      //await the response from the client querying the database
+      const response = await client.query(SQL, [req.params.id]);
+      //send the response. If no status code is given express will send 200 by default
+      res.send(response.rows);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+//UPDATE - edits a flavor based on the id passed and information within the request body
 server.put("/api/flavors/:id", async (req, res, next) => {
   try {
     //create the SQL query to update the note with the selected id
@@ -112,7 +126,7 @@ server.put("/api/flavors/:id", async (req, res, next) => {
 //DELETE
 server.delete("/api/flavors/:id", async (req, res, next) => {
   try {
-    //create the SQL query to delete a note by id
+    //create the SQL query to delete a flavor by id
     const SQL = `DELETE FROM iceshop WHERE id=$1;`;
     //await the response from the client querying the database
     await client.query(SQL, [req.params.id]);

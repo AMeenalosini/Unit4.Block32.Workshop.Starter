@@ -5,7 +5,7 @@ const morgan = require("morgan");
 
 //create client to connect to the database
 const client = new pg.Client(
-  process.env.DATABASE_URL || "postgres://postgres:Ram00gcr$@localhost/the_acme_iceshop_db"
+  process.env.DATABASE_URL || "postgres://localhost/the_acme_iceshop_db"
 );
 
 //create the express server
